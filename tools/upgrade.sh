@@ -23,7 +23,15 @@ fi
 
 printf "${BLUE}%s${NORMAL}\n" "Upgrading Oh My Zsh"
 cd "$ZSH"
-if git pull --rebase --stat origin master
+if git remote show upstream
+then update
+else
+git remote add upstream https://github.com/robbyrussell/oh-my-zsh.git
+git fetch upstream
+git checkout master
+fi
+function update {
+if git pull origin master && git pull --rebase --stat upstream master
 then
   printf '%s' "$GREEN"
   printf '%s\n' '         __                                     __   '
@@ -38,3 +46,4 @@ then
 else
   printf "${RED}%s${NORMAL}\n" 'There was an error updating. Try again later?'
 fi
+}
