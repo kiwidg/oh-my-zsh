@@ -19,7 +19,7 @@ else
   BOLD=""
   NORMAL=""
 fi
-function update {
+update () {
 if git pull origin master && git pull --rebase --stat upstream master && git push origin master --force
 then
         printf '%s' "$GREEN"
